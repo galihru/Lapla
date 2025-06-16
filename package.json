@@ -1,0 +1,17 @@
+{
+  "name": "4211421036/lapla",
+  "version": "1.0.0",
+  "description": "Step-by-step symbolic differentiation and Laplace transforms",
+  "main": "index.js",
+  "bin": {
+    "laplaceop": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "node tests/test_core.js"
+  },
+  "author": "GALIH RIDHO UTOMO <g4lihru@students.unnes.ac.id>",
+  "license": "MIT",
+  "dependencies": {
+    "nerdamer": "^1.1.11"
+  }
+}
