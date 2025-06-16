@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '18'
           registry-url: 'https://npm.pkg.github.com/'
-          scope: '@galihridhoutomo'
+          scope: '@4211421036'
           always-auth: true
 
       - name: Generate package-lock.json
