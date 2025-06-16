@@ -9,16 +9,13 @@ on:
     tags:
       - 'v*.*.*'
 
-
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Checkout code
       - uses: actions/checkout@v4
 
-      # 2) Setup Node.js + authenticate to GitHub Packages
       - name: Setup Node.js & Authenticate
         uses: actions/setup-node@v4
         with:
@@ -27,11 +24,9 @@ jobs:
           scope: '@galihridhoutomo'
           always-auth: true
 
-      # 3) Install deps
       - name: Install dependencies
         run: npm ci
 
-      # 4) Publish
       - name: Publish to GitHub Packages
         run: npm publish --registry=https://npm.pkg.github.com/ --access public
         env:
