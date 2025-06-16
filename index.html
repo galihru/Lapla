@@ -59,8 +59,6 @@
       overflow-wrap: break-word;
     }
   </style>
-  <!-- Algebrite for symbolic Laplace -->
-  <script src="https://unpkg.com/algebrite"></script>
   <!-- MathJax for LaTeX rendering -->
   <script>
     window.MathJax = {
@@ -78,7 +76,8 @@
     <div id="output" class="output"></div>
   </div>
 
-  <script>
+  <script type="module">
+    import Lapla from 'https://cdn.jsdelivr.net/npm/@galihridhoutomo/lapla?module';
     const exprInput = document.getElementById('expression');
     const calcBtn = document.getElementById('calc');
     const outputDiv = document.getElementById('output');
@@ -92,7 +91,6 @@
           i++;
           setTimeout(type, speed);
         } else {
-          // render LaTeX
           MathJax.typesetPromise([element]);
         }
       }
@@ -102,14 +100,12 @@
     calcBtn.addEventListener('click', () => {
       const f = exprInput.value.trim();
       if (!f) return;
-      const msg = 'Computing L{ ' + f + ' }...';
-      typeWriter(msg, outputDiv);
-
-      setTimeout(() => {
+      typeWriter(`Computing L{ ${f} }...`, outputDiv);
+      setTimeout(async () => {
         try {
-          const res = Algebrite.run('laplace(' + f + ', t, s)');
-          const latex = Algebrite.run('printlatex(laplace(' + f + ', t, s))');
-          const display = '$$ L\{ ' + f + ' \}(s) = ' + latex + ' $$';
+          const result = Lapla.laplace(f);       // returns expression in s
+          const latex = Lapla.toLatex(result);   // convert to LaTeX
+          const display = `$$ L\{ ${f} \}(s) = ${latex} $$`;
           typeWriter(display, outputDiv, 20);
         } catch (e) {
           typeWriter('Error: invalid expression', outputDiv, 20);
