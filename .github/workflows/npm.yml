@@ -6,9 +6,11 @@ permissions:
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
-
+    branches:
+      - main
+    paths:
+      - '.github/workflows/npm.yml'
+      
 jobs:
   publish:
     runs-on: ubuntu-latest
