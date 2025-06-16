@@ -1,5 +1,5 @@
 {
-  "name": "4211421036/lapla",
+  "name": "@galihridhoutomo/lapla",
   "version": "1.0.0",
   "description": "Step-by-step symbolic differentiation and Laplace transforms",
   "main": "index.js",
