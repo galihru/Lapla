@@ -19,13 +19,13 @@ A scientific library delivering transparent, step-by-step symbolic computations 
 ## Installation
 
 ```bash
-npm install -g Lapla
+npm install -g @galihridhoutomo/Lapla
 ````
 
 Or to include locally in a project:
 
 ```bash
-npm install 4211421036/Lapla
+npm install @galihridhoutomo/Lapla
 ```
 
 ---
