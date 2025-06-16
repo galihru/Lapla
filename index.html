@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laplace Transform Calculator</title>
+  <!-- Glassmorphism UI -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    input {
+      background: rgba(255,255,255,0.6);
+    }
+    button {
+      background: #4a90e2;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #357ab8;
+    }
+    .output {
+      margin-top: 1rem;
+      min-height: 4rem;
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+  </style>
+  <!-- Algebrite for symbolic Laplace -->
+  <script src="https://unpkg.com/algebrite"></script>
+  <!-- MathJax for LaTeX rendering -->
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <div class="card">
+    <h1>Laplace Transform Calculator</h1>
+    <input id="expression" type="text" placeholder="Enter f(t), e.g. sin(t)" />
+    <button id="calc">Calculate</button>
+    <div id="output" class="output"></div>
+  </div>
+
+  <script>
+    const exprInput = document.getElementById('expression');
+    const calcBtn = document.getElementById('calc');
+    const outputDiv = document.getElementById('output');
+
+    function typeWriter(text, element, speed = 40) {
+      element.textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else {
+          // render LaTeX
+          MathJax.typesetPromise([element]);
+        }
+      }
+      type();
+    }
+
+    calcBtn.addEventListener('click', () => {
+      const f = exprInput.value.trim();
+      if (!f) return;
+      const msg = 'Computing L{ ' + f + ' }...';
+      typeWriter(msg, outputDiv);
+
+      setTimeout(() => {
+        try {
+          const res = Algebrite.run('laplace(' + f + ', t, s)');
+          const latex = Algebrite.run('printlatex(laplace(' + f + ', t, s))');
+          const display = '$$ L\{ ' + f + ' \}(s) = ' + latex + ' $$';
+          typeWriter(display, outputDiv, 20);
+        } catch (e) {
+          typeWriter('Error: invalid expression', outputDiv, 20);
+        }
+      }, f.length * 30 + 500);
+    });
+  </script>
+</body>
+</html>
