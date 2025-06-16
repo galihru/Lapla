@@ -6,38 +6,34 @@ permissions:
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*.*.*'
 
+
 jobs:
-  build-and-publish:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # 1) Checkout code
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      # 2) Setup Node.js + authenticate to GitHub Packages
+      - name: Setup Node.js & Authenticate
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
-          registry-url: 'https://registry.npmjs.org/'
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@galihridhoutomo'
+          always-auth: true
 
-      - name: Generate package-lock.json
-        run: npm install --package-lock-only
-
+      # 3) Install deps
       - name: Install dependencies
         run: npm ci
 
-      - name: Publish to npm
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      
+      # 4) Publish
       - name: Publish to GitHub Packages
         run: npm publish --registry=https://npm.pkg.github.com/ --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
