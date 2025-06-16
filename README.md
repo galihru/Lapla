@@ -33,7 +33,7 @@ npm install @galihridhoutomo/Lapla
 ## Programmatic API
 
 ```js
-const { LaplaceOperator } = require('Lapla');
+const { LaplaceOperator } = require('galihridhoutomo/Lapla');
 
 // 1. Instantiate with a time-domain function f(t)
 const op = new LaplaceOperator("exp(-3*t) + t^2");
