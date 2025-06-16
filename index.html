@@ -77,7 +77,8 @@
   </div>
 
   <script type="module">
-    import Lapla from 'https://cdn.jsdelivr.net/npm/@galihridhoutomo/lapla';
+    // Import module Lapla as namespace
+    import * as Lapla from 'https://unpkg.com/@galihridhoutomo/lapla@1.1.0?module';
     const exprInput = document.getElementById('expression');
     const calcBtn = document.getElementById('calc');
     const outputDiv = document.getElementById('output');
@@ -103,11 +104,13 @@
       typeWriter(`Computing L{ ${f} }...`, outputDiv);
       setTimeout(async () => {
         try {
-          const result = Lapla.laplace(f);       // returns expression in s
-          const latex = Lapla.toLatex(result);   // convert to LaTeX
+          // Use named export functions
+          const result = Lapla.laplace(f);       
+          const latex = Lapla.toLatex(result);
           const display = `$$ L\{ ${f} \}(s) = ${latex} $$`;
           typeWriter(display, outputDiv, 20);
         } catch (e) {
+          console.error(e);
           typeWriter('Error: invalid expression', outputDiv, 20);
         }
       }, f.length * 30 + 500);
