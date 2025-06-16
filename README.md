@@ -11,7 +11,7 @@ A scientific library delivering transparent, step-by-step symbolic computations 
 
 1. **Expression parsing** of any \(f(t)\) via string input.  
 2. **Symbolic differentiation** up to integer order \(n\), with each intermediate step logged.  
-3. **Laplace transform** \(\mathcal{L}\{\,\cdot\,\}(s)\) of the base function or its derivatives.  
+3. **Laplace transform** $$\(\mathcal{L}\{\,\cdot\,\}(s)\)$$ of the base function or its derivatives.  
 4. A **CLI tool** `laplaceop` and a programmatic **`LaplaceOperator`** class.
 
 ---
