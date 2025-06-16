@@ -4,7 +4,7 @@
   "description": "Step-by-step symbolic differentiation and Laplace transforms",
   "main": "index.js",
   "bin": {
-    "laplaceop": "./bin/cli.js"
+    "lapla": "./bin/cli.js"
   },
   "scripts": {
     "test": "node tests/test_core.js"
