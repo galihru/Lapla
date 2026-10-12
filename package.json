@@ -12,6 +12,6 @@
   "author": "GALIH RIDHO UTOMO <g4lihru@students.unnes.ac.id>",
   "license": "MIT",
   "dependencies": {
-    "nerdamer": "^1.1.11"
+    "nerdamer": "^2.0.0"
   }
 }
